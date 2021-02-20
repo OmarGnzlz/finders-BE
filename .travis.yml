@@ -1,0 +1,25 @@
+language: node_js
+cache:
+  directories:
+  - node_modules
+  - "~/.npm"
+node_js:
+- '12'
+git:
+  depth: 3
+notifications:
+  email:
+    recipients:
+    - ingecarlos.gutierrez@gmail.com
+    on_success: always
+    on_failure: always
+deploy:
+  provider: heroku
+  cleanup: true
+  keep-history: true
+  api_key: 
+    secure: ST0tUuE25Evf1vVMA+GFRhqcHfn10pT3JyeqElZl0TlQbIuCWaCT7TPjDR/Tpi57YKXLsVtnUJTVzPiOn8MohN3z2q1g29+WMWTGi9F4JNviCMiT+MzMCH4ZQSPZGpm/znuk+XjWnQACDx0nSXRrN58Miwwyf2k4Iu7cgna+2Sv2PEMdIMReZSnUbm5fQMXhXO49lIEx8mqlSiZSouBU1IiZU5+YwtCXMKTI/UhdZzSrDN8BO6uLpM2m5m59VXn2Zd6cfp4BaYskF+Smz9GR/Ji4cVZsQDbRyV6/XDhPlWUQ5PfooSnPL+2n77X0zlkBlRp/fn04HKj6aFT6N2OycktLmcokcJ1q/Dq9noQF+BOZoij2hp8W03bpKnZtqeDlQv5DCsBTCkz7yG/aOI7gzc5y6+5XuY939PZzjIPQx1G2CHatBzIid4BCKsxCeVgxJJv1YsEMK7ERHiR1zJ/zlrqv6fwnrlCrbjpKWZVmgEMXGvSuyzdnSilKVi/gpOdaWlNWrhOJjVusSc787297JUw/z1Yb0VOxaKu790FxwafyxSHc14WgIOmiaTh9FXbkGAi58OXmBIKK7Q151E0bBHqgENgPAt3GyIkZTwAdLuPwK/YNgIUYyJ+YhmqRowxDEv9AMRDbwLd3KMYCbMYLWp83JRce43KRONBFiNXRE/M=
+  app: thefinders
+  on:
+    repo: Finders-Master/finders-BE
+
