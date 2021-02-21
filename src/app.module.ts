@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { InformationModule } from './information/information.module';
 
 import { TYPEORM_CONFIG } from './config/constants'
+import { RegisterModule } from './register/register.module';
 import databaseConfig from './config/database.config'
 import configSecret from './config/config'
 
@@ -33,7 +34,7 @@ import configSecret from './config/config'
     }),
     LoginModule, 
     AuthModule, 
-    InformationModule, 
+    InformationModule, RegisterModule, 
   ],
   controllers: [],
   providers: [],
