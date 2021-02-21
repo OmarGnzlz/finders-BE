@@ -8,6 +8,10 @@ import { AuthModule } from './auth/auth.module';
 import { InformationModule } from './information/information.module';
 
 import { TYPEORM_CONFIG } from './config/constants'
+import { AllergiesModule } from './database/allergies/allergies.module';
+import { DiseaseModule } from './database/disease/disease.module';
+import { MedicationModule } from './database/medication/medication.module';
+import { BloodtypeModule } from './database/bloodtype/bloodtype.module';
 import databaseConfig from './config/database.config'
 import configSecret from './config/config'
 
@@ -33,7 +37,7 @@ import configSecret from './config/config'
     }),
     LoginModule, 
     AuthModule, 
-    InformationModule, 
+    InformationModule, AllergiesModule, DiseaseModule, MedicationModule, BloodtypeModule, 
   ],
   controllers: [],
   providers: [],
