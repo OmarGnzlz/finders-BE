@@ -9,7 +9,7 @@ import {
 import { User } from '../../user/entities/user.entity';
 import { Position } from '../../position/entities/position.entity'
 
-@Entity('codeqr')
+@Entity('code_qr')
 export class CodeQr {
   @OneToMany(() => Position, position => position.id, {
     onDelete: 'CASCADE',
