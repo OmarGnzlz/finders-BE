@@ -17,6 +17,6 @@ export class Medication {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', nullable: false})
+  @Column({ type: 'text', nullable: false})
   medication: string;
 }

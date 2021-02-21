@@ -17,6 +17,6 @@ export class Institutions {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', nullable: false})
+  @Column({ type: 'text', nullable: false})
   institutions: string;
 }

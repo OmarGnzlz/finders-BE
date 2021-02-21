@@ -17,6 +17,6 @@ export class Allergies {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', nullable: false})
+  @Column({ type: 'text', nullable: false})
   type_allergies: string;
 }

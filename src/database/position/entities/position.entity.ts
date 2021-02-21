@@ -14,10 +14,10 @@ export class Position {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', nullable: false})
+  @Column({ type: 'text', nullable: false})
   gps: string;
 
-  @Column({ type: 'varchar', nullable: false})
+  @Column({ type: 'text', nullable: false})
   map_codes: string;
 
   @ManyToOne(() => User, (user) => user.id)
