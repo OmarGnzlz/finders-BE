@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity'
 
-@Entity('health')
+@Entity('institutions')
 export class Institutions {
   @OneToMany(() => User, user => user.id, {
     onDelete: 'CASCADE',
@@ -17,6 +17,6 @@ export class Institutions {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'string', nullable: false})
+  @Column({ type: 'varchar', nullable: false})
   institutions: string;
 }

@@ -9,15 +9,15 @@ import { User } from '../../user/entities/user.entity'
 import { CodeQr } from '../../codeqr/entities/codeqr.entity'
 
 
-@Entity('health')
+@Entity('position')
 export class Position {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'string', nullable: false})
+  @Column({ type: 'varchar', nullable: false})
   gps: string;
 
-  @Column({ type: 'string', nullable: false})
+  @Column({ type: 'varchar', nullable: false})
   map_codes: string;
 
   @ManyToOne(() => User, (user) => user.id)

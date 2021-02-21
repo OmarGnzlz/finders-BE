@@ -7,6 +7,7 @@ import { LoginModule } from './login/login.module';
 import { AuthModule } from './auth/auth.module';
 import { InformationModule } from './information/information.module';
 
+import { TYPEORM_CONFIG } from './config/constants'
 import databaseConfig from './config/database.config'
 import configSecret from './config/config'
 

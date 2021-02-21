@@ -17,16 +17,16 @@ export class Health {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'string', nullable: false})
+  @Column({ type: 'varchar', nullable: false})
   allergies: string;
 
-  @Column({ type: 'string', nullable: false})
+  @Column({ type: 'varchar', nullable: false})
   diseases: string;
 
-  @Column({ type: 'string', nullable: false})
+  @Column({ type: 'varchar', nullable: false})
   medication: string;
 
-  @Column({ type: 'string', nullable: false})
+  @Column({ type: 'varchar', nullable: false})
   blood_type: string;
 
 }

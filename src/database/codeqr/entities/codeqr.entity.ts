@@ -19,7 +19,7 @@ export class CodeQr {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'string', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   qrcode: string;
 
   @ManyToOne(() => User, (user) => user.id)

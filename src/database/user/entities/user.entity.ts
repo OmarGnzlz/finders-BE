@@ -26,20 +26,20 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'string', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   name: string;
 
-  @Column({ type: 'string', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   address: string;
 
-  @Column({ type: 'string', nullable: false })
-  iddocument: string;
+  @Column({ type: 'varchar', nullable: false })
+  id_document: string;
 
-  @Column({ type: 'string', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   pictures: string;
 
-  @Column({ type: 'string', nullable: false })
-  contactEmergencies: string;
+  @Column({ type: 'varchar', nullable: false })
+  contact_emergencies: string;
 
   @ManyToOne(() => Health, (health) => health.id)
   @JoinColumn({ name: 'health_id' })
