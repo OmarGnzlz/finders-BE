@@ -7,6 +7,6 @@ import { CodeQr } from './entities/codeqr.entity';
 export class CodeqrService {
   constructor(
     @InjectRepository(CodeQr)
-    private readonly codeQrRepository: Repository<CodeQr>
+    private readonly codeQrRepository: Repository<CodeQr>,
   ) {}
 }

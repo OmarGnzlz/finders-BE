@@ -5,11 +5,11 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { User } from '../../user/entities/user.entity';
+import { Health } from '../../health/entities/health.entity';
 
-@Entity('type_user')
-export class TypeUser {
-  @OneToMany(() => User, (user) => user.id, {
+@Entity('blood_type')
+export class BloodType {
+  @OneToMany(() => Health, (health) => health.id, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
@@ -18,5 +18,5 @@ export class TypeUser {
   id: number;
 
   @Column({ type: 'varchar', nullable: false })
-  type_user: string;
+  type_blood: string;
 }
