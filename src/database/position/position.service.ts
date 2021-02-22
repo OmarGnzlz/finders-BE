@@ -7,6 +7,6 @@ import { Position } from './entities/position.entity';
 export class PositionService {
   constructor(
     @InjectRepository(Position)
-    private readonly positionRepository: Repository<Position>
+    private readonly positionRepository: Repository<Position>,
   ) {}
 }

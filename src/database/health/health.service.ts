@@ -6,6 +6,6 @@ import { Health } from './entities/health.entity';
 export class HealthService {
   constructor(
     @InjectRepository(Health)
-    private readonly healthRepository: Repository<Health>
+    private readonly healthRepository: Repository<Health>,
   ) {}
 }

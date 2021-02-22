@@ -6,7 +6,7 @@ function typeormModuleOptions(): TypeOrmModuleOptions {
   return {
     type: 'mysql',
     host: process.env.HOST,
-    port: parseInt(process.env.PORT_DB) || 3306, 
+    port: parseInt(process.env.PORT_DB) || 3306,
     username: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
@@ -20,8 +20,8 @@ function typeormModuleOptions(): TypeOrmModuleOptions {
     },
     synchronize: true,
     logging: true,
-    logger: 'file'
-  }
+    logger: 'file',
+  };
 }
 
 export default registerAs('database', () => ({

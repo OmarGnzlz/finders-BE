@@ -5,7 +5,6 @@ import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class LoginService {
-
   create(createLoginDto: CreateLoginDto) {
     return 'This action adds a new login';
   }

@@ -1,14 +1,9 @@
-import {
-  Entity, 
-  PrimaryGeneratedColumn, 
-  JoinColumn,
-  ManyToOne
-} from 'typeorm';
-import { User } from '../../user/entities/user.entity'
-import { Allergies } from '../../allergies/entities/allergies.entity'
-import { Medication } from '../../medication/entities/medication.entity'
-import { BloodType } from '../../bloodtype/entities/bloodtype.entity'
-import { Disease } from '../../disease/entities/disease.entity'
+import { Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
+import { User } from '../../user/entities/user.entity';
+import { Allergies } from '../../allergies/entities/allergies.entity';
+import { Medication } from '../../medication/entities/medication.entity';
+import { BloodType } from '../../bloodtype/entities/bloodtype.entity';
+import { Disease } from '../../disease/entities/disease.entity';
 
 @Entity('health')
 export class Health {
@@ -34,7 +29,4 @@ export class Health {
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'institutions_id' })
   user_id: User;
-
-
-
 }

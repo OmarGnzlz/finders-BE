@@ -3,20 +3,20 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   JoinColumn,
-  OneToMany
+  OneToMany,
 } from 'typeorm';
-import { Health } from '../../health/entities/health.entity'
+import { Health } from '../../health/entities/health.entity';
 
 @Entity('medication')
 export class Medication {
-  @OneToMany(() => Health, health => health.id, {
+  @OneToMany(() => Health, (health) => health.id, {
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'text', nullable: false})
+  @Column({ type: 'text', nullable: false })
   medication: string;
 }
