@@ -7,6 +7,6 @@ import { BloodType } from './entities/bloodtype.entity';
 export class BloodtypeService {
   constructor(
     @InjectRepository(BloodType)
-    private readonly bloodTypeRepository: Repository<BloodType>
+    private readonly bloodTypeRepository: Repository<BloodType>,
   ) {}
 }

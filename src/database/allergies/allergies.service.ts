@@ -7,6 +7,6 @@ import { Allergies } from './entities/allergies.entity';
 export class AllergiesService {
   constructor(
     @InjectRepository(Allergies)
-    private readonly allergiesRepository: Repository<Allergies>
+    private readonly allergiesRepository: Repository<Allergies>,
   ) {}
 }

@@ -1,22 +1,22 @@
 import {
-  Column, 
-  Entity, 
-  PrimaryGeneratedColumn, 
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
   JoinColumn,
-  OneToMany 
+  OneToMany,
 } from 'typeorm';
-import { User } from '../../user/entities/user.entity'
+import { User } from '../../user/entities/user.entity';
 
 @Entity('institutions')
 export class Institutions {
-  @OneToMany(() => User, user => user.id, {
+  @OneToMany(() => User, (user) => user.id, {
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'text', nullable: false})
+  @Column({ type: 'text', nullable: false })
   institutions: string;
 }

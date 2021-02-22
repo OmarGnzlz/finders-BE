@@ -7,6 +7,6 @@ import { Disease } from './entities/disease.entity';
 export class DiseaseService {
   constructor(
     @InjectRepository(Disease)
-    private readonly diseaseRepository: Repository<Disease>
+    private readonly diseaseRepository: Repository<Disease>,
   ) {}
 }

@@ -7,6 +7,6 @@ import { TypeUser } from './entities/typeuser.entity';
 export class TypeuserService {
   constructor(
     @InjectRepository(TypeUser)
-    private readonly typeUserRepository: Repository<TypeUser>
+    private readonly typeUserRepository: Repository<TypeUser>,
   ) {}
 }

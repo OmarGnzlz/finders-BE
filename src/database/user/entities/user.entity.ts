@@ -6,23 +6,23 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { CodeQr } from '../../codeqr/entities/codeqr.entity'
-import { Institutions } from '../../institutions/entities/institutions.entity'
-import { TypeUser } from '../../typeuser/entities/typeuser.entity'
-import { Position } from '../../position/entities/position.entity'
-import { Health } from '../../health/entities/health.entity'
+import { CodeQr } from '../../codeqr/entities/codeqr.entity';
+import { Institutions } from '../../institutions/entities/institutions.entity';
+import { TypeUser } from '../../typeuser/entities/typeuser.entity';
+import { Position } from '../../position/entities/position.entity';
+import { Health } from '../../health/entities/health.entity';
 
 @Entity('user')
 export class User {
-  @OneToMany(() => CodeQr, codeQr => codeQr.id, {
+  @OneToMany(() => CodeQr, (codeQr) => codeQr.id, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @OneToMany(() => Position, pos => pos.id, {
+  @OneToMany(() => Position, (pos) => pos.id, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @OneToMany(() => Health, health => health.id, {
+  @OneToMany(() => Health, (health) => health.id, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
@@ -47,9 +47,9 @@ export class User {
 
   @ManyToOne(() => Institutions, (ins) => ins.id)
   @JoinColumn({ name: 'institutions_id' })
-  institutions_id:Institutions 
+  institutions_id: Institutions;
 
   @ManyToOne(() => TypeUser, (typeuser) => typeuser.id)
   @JoinColumn({ name: 'type_user_id' })
-  type_user_id: TypeUser
+  type_user_id: TypeUser;
 }

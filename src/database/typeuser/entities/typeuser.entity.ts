@@ -3,20 +3,20 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   JoinColumn,
-  OneToMany
+  OneToMany,
 } from 'typeorm';
-import { User } from '../../user/entities/user.entity'
+import { User } from '../../user/entities/user.entity';
 
 @Entity('type_user')
 export class TypeUser {
-  @OneToMany(() => User, user => user.id, {
+  @OneToMany(() => User, (user) => user.id, {
     onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+    onUpdate: 'CASCADE',
   })
   @JoinColumn()
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', nullable: false})
+  @Column({ type: 'varchar', nullable: false })
   type_user: string;
 }
