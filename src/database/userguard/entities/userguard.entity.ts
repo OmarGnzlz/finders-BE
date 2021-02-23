@@ -28,6 +28,9 @@ export class UserGuard {
   name: string;
 
   @Column({ type: 'varchar', nullable: false })
+  email: string;
+
+  @Column({ type: 'varchar', nullable: false })
   pictures: string;
 
   @Column({ type: 'varchar', nullable: false })
