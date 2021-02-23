@@ -12,6 +12,7 @@ import { AllergiesModule } from './database/allergies/allergies.module';
 import { DiseaseModule } from './database/disease/disease.module';
 import { MedicationModule } from './database/medication/medication.module';
 import { BloodtypeModule } from './database/bloodtype/bloodtype.module';
+import { UserguardModule } from './database/userguard/userguard.module';
 import databaseConfig from './config/database.config';
 import configSecret from './config/config';
 
@@ -39,6 +40,7 @@ import configSecret from './config/config';
     DiseaseModule,
     MedicationModule,
     BloodtypeModule,
+    UserguardModule,
   ],
   controllers: [],
   providers: [],
