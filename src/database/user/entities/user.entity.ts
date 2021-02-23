@@ -11,8 +11,9 @@ import { Institutions } from '../../institutions/entities/institutions.entity';
 import { TypeUser } from '../../typeuser/entities/typeuser.entity';
 import { Position } from '../../position/entities/position.entity';
 import { Health } from '../../health/entities/health.entity';
+import { UserGuard } from '../../userguard/entities/userguard.entity';
 
-@Entity('user')
+@Entity('angel_user')
 export class User {
   @OneToMany(() => CodeQr, (codeQr) => codeQr.id, {
     onDelete: 'CASCADE',
@@ -42,12 +43,16 @@ export class User {
   @Column({ type: 'varchar', nullable: false })
   pictures: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'text', nullable: false })
   contact_emergencies: string;
 
   @ManyToOne(() => Institutions, (ins) => ins.id)
   @JoinColumn({ name: 'institutions_id' })
   institutions_id: Institutions;
+
+  @ManyToOne(() => UserGuard, (userguard) => userguard.id)
+  @JoinColumn({ name: 'userguard_id' })
+  guard_id: UserGuard;
 
   @ManyToOne(() => TypeUser, (typeuser) => typeuser.id)
   @JoinColumn({ name: 'type_user_id' })

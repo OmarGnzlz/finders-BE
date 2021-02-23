@@ -6,6 +6,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
+import { UserGuard } from '../../userguard/entities/userguard.entity';
 import { CodeQr } from '../../codeqr/entities/codeqr.entity';
 
 @Entity('position')
@@ -19,13 +20,13 @@ export class Position {
   @Column({ type: 'text', nullable: false })
   map_codes: string;
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => UserGuard, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
-  user_id: User;
+  user_id: UserGuard;
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => UserGuard, (userguard) => userguard.id)
   @JoinColumn({ name: 'guard_id' })
-  guard_id: User;
+  guard_id: UserGuard;
 
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'angel_id' })
