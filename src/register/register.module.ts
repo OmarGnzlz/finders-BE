@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { RegisterController } from './register.controller';
 import { RegisterService } from './register.service';
-import { UserGuard } from '../database/userguard/entities/userguard.entity';
+import { UserguardModule } from '../database/userguard/userguard.module';
+import { TypeuserModule } from '../database/typeuser/typeuser.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserGuard])],
+  imports: [
+    UserguardModule,
+    TypeuserModule,
+  ],
   controllers: [RegisterController],
-  providers: [RegisterService]
+  providers: [RegisterService],
+  exports: [RegisterService],
 })
 export class RegisterModule {}

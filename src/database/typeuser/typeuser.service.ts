@@ -9,4 +9,15 @@ export class TypeuserService {
     @InjectRepository(TypeUser)
     private readonly typeUserRepository: Repository<TypeUser>,
   ) {}
+
+  async getTypeById(id: number) {
+    const result = await this.typeUserRepository.findOne({
+      where: [
+        {
+          id
+        }
+      ]
+    })
+    return result
+  }
 }
