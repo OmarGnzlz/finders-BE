@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as Joi from '@hapi/joi';
 
-import { LoginModule } from './login/login.module';
 import { InformationModule } from './information/information.module';
 import { TYPEORM_CONFIG } from './config/constants';
 import { RegisterModule } from './register/register.module';
@@ -27,7 +26,6 @@ import configSecret from './config/config';
           .default('development'),
       }),
     }),
-    LoginModule,
     RegisterModule,
     InformationModule,
   ],

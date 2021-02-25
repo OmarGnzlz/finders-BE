@@ -7,7 +7,11 @@ export class AuthService {
 
   async login(user: any): Promise<any> {
     try {
-      const payload = { username: user.username };
+      const payload = {
+        username: user.name,
+        email: user.email,
+        type_user: user.type_user_id.type_user,
+      };
       return this.jwtService.sign(payload);
     } catch (e) {
       console.log(e);

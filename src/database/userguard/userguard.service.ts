@@ -21,24 +21,26 @@ export class UserguardService {
         {
           name,
           email,
-        }
-      ]
-    })
-    return result
+        },
+      ],
+    });
+    return result;
   }
 
   async getAll() {
-    const result = await this.guardRepository.createQueryBuilder('guard_user')
-        .select(['id', 'name', 'pictures', 'type_user_id', 'email'])
-        .execute();
-    return result
+    const result = await this.guardRepository
+      .createQueryBuilder('guard_user')
+      .select(['id', 'name', 'pictures', 'type_user_id', 'email'])
+      .execute();
+    return result;
   }
 
   async getById(id: number) {
-    const result = await this.guardRepository.createQueryBuilder('guard_user')
-        .where('guard_user.id like :id', { id })
-        .select(['id', 'name', 'pictures', 'type_user_id', 'email'])
-        .execute();
+    const result = await this.guardRepository
+      .createQueryBuilder('guard_user')
+      .where('guard_user.id like :id', { id })
+      .select(['id', 'name', 'pictures', 'type_user_id', 'email'])
+      .execute();
     return result[0];
   }
 }
