@@ -13,61 +13,81 @@ export class RegisterService {
     private authService: AuthService,
   ) {}
 
-  newUser = async (user: any) => {
+  newUser = async (passwordTxt: string) => {
     const salt = bcrypt.genSaltSync(10);
-    const password = JSON.stringify(user.password);
+    const password = JSON.stringify(passwordTxt);
     const hash = await bcrypt.hashSync(password, salt);
-    const userCreated: CreateRegisterDto = {
-      name: user.name,
-      email: user.email,
-      pictures: user.pictures,
-      password: hash,
-      type_user_id: 1,
-    };
-    return userCreated;
+    return hash;
   };
 
-  validations = (user: any) => {
-    const aRCheck = /[@]/g;
-    const stringCheck = /[a-zA-Z]/g;
-    const numberCheck = /[0-9]/g;
-    const min = 6;
-    if (user.email.match(aRCheck) === null) return 'email';
-    if (
-      user.password.match(stringCheck) === null ||
-      user.password.match(numberCheck) === null
-    )
-      return 'password';
-    if (user.password.length < min) return 'len';
+  validateEmail = (email: string) => {
+    const aRCheck = /^[a-z0-9+_.-]+@[a-z0-9.-]+[.]{1}[a-z]+$/g;
+    const returnWord = 'email';
+    console.log(email.match(aRCheck));
+    if (email.match(aRCheck) === null) return returnWord;
     return false;
   };
 
-  async createRegister(createRegisterDto: any) {
-    const checker = this.validations(createRegisterDto);
-    if (checker === 'email') throw new HttpException('Email is not valid', 400);
-    if (checker === 'password')
+  validatePasswordString = (password: any) => {
+    const returnWord = 'password';
+    const stringCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
+    console.log(password.match(stringCheck));
+    if (password.match(stringCheck) === null) return returnWord;
+    return false;
+  };
+
+  validateLength = (password: string) => {
+    const min = 6;
+    if (password.length < min) return 'len';
+    return false;
+  };
+
+  getUserEmailToValidation = async (email: string) => {
+    return await this.registerRepository.getOneUserByEmail(email);
+  };
+
+  getUserNameToValidation = async (name: string) => {
+    return await this.registerRepository.getOneUserByName(name);
+  };
+
+  lowerCaseWord = (word: string) => {
+    return word.toLowerCase();
+  }
+
+  createRegister = async (createRegisterDto: CreateRegisterDto) => {
+    createRegisterDto.email = this.lowerCaseWord(createRegisterDto.email)
+    if (this.validateEmail(createRegisterDto.email) === 'email')
+      throw new HttpException('Email is not valid', 400);
+    if (this.validatePasswordString(createRegisterDto.password) === 'password')
       throw new HttpException('Password shall be alfa numeric', 400);
-    if (checker === 'len')
+    if (this.validateLength(createRegisterDto.password) === 'len')
       throw new HttpException('Password shall be more than 6 characters', 400);
-    const result = await this.registerRepository.getOneUser(
+
+    const userExist = await this.getUserNameToValidation(
       createRegisterDto.name,
+    );
+    const emailExist = await this.getUserEmailToValidation(
       createRegisterDto.email,
     );
-    if (result) throw new HttpException('user exist', 400);
-    const user = await this.newUser(createRegisterDto);
-    const register: any = await this.registerRepository.createUser(user);
+    if (userExist || emailExist) throw new HttpException('user exist', 400);
+
+    createRegisterDto.password = await this.newUser(createRegisterDto.password);
+    const register: any = await this.registerRepository.createUser(
+      createRegisterDto,
+    );
+
     const { password, ...res } = register;
     res.type_user_id = await this.typeUserRepository.getTypeById(
       res.type_user_id,
     );
     return res;
-  }
+  };
 
-  async loginUser(user: any) {
+  loginUser = async (user: any) => {
     return user;
-  }
+  };
 
-  async getUsers() {
+  getUsers = async () => {
     const users = await this.registerRepository.getAll();
     for (const element in users) {
       users[element].type_user_id = await this.typeUserRepository.getTypeById(
@@ -75,14 +95,15 @@ export class RegisterService {
       );
     }
     return users;
-  }
+  };
 
-  async getUser(userID: string) {
+  getUser = async (userID: string) => {
     const user: any = await this.registerRepository.getById(parseInt(userID));
+    if (user === undefined) throw new HttpException('User does not exist', 404);
     const { password, ...res } = user;
     res.type_user_id = await this.typeUserRepository.getTypeById(
       res.type_user_id,
     );
     return res;
-  }
+  };
 }

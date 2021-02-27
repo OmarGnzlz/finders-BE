@@ -15,12 +15,22 @@ export class UserguardService {
     return await this.guardRepository.save(register);
   }
 
-  async getOneUser(name: string, email: string) {
+  async getOneUserByEmail(email: string) {
+    const result = await this.guardRepository.findOne({
+      where: [
+        {
+          email,
+        },
+      ],
+    });
+    return result;
+  }
+
+  async getOneUserByName(name: string) {
     const result = await this.guardRepository.findOne({
       where: [
         {
           name,
-          email,
         },
       ],
     });
