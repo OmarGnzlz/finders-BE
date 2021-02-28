@@ -24,10 +24,19 @@ export class RegisterController {
     private authService: AuthService,
   ) {}
 
+  @Post('/social-media')
+  @UseInterceptors(FileInterceptor('name'))
+  async createUserMedia(@Body() body: any) {
+    const {  apiKeyToken, ...bodyUser } = body;
+    const user = await this.registerService.createRegister(bodyUser, true);
+    const payload = await this.authService.payloadUser(user);
+    return payload;
+  }
+
   @Post('/register')
   @UseInterceptors(FileInterceptor('name'))
   async createUser(@Res() res: any, @Body() body: CreateRegisterDto) {
-    const user = await this.registerService.createRegister(body);
+    const user = await this.registerService.createRegister(body, false);
     return res.status(HttpStatus.OK).json({ user });
   }
 

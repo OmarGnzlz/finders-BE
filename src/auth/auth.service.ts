@@ -14,6 +14,7 @@ export class AuthService {
 
   async validateUser(username: string, pass: string): Promise<any> {
     let user: any = await this.userguardService.getOneUserByEmail(username);
+    if (user === undefined) return null
     const hash = user.password;
     user = await this.userguardService.getById(user.id);
     user.type_user_id = await this.typeuserService.getTypeById(

@@ -45,7 +45,7 @@ export class RegisterService {
     return word.toLowerCase();
   };
 
-  createRegister = async (createRegisterDto: CreateRegisterDto) => {
+  createRegister = async (createRegisterDto: CreateRegisterDto, media: boolean) => {
     createRegisterDto.email = this.lowerCaseWord(createRegisterDto.email);
     if (this.validateEmail(createRegisterDto.email) === 'email')
       throw new HttpException('Email is not valid', 400);
@@ -68,7 +68,12 @@ export class RegisterService {
     const emailExist = await this.getUserEmailToValidation(
       createRegisterDto.email,
     );
-    if (userExist || emailExist) throw new HttpException('user exist', 400);
+
+    if (media === false && (userExist || emailExist)) throw new HttpException('user exist', 400);
+    if (media) {
+      const checkEmail: any = await this.registerRepository.getUserByEmailAndUser(createRegisterDto.name, createRegisterDto.email)
+      if (checkEmail) return this.getUser(checkEmail.id);
+    }
 
     createRegisterDto.password = await this.newUser(createRegisterDto.password);
     const register: any = await this.registerRepository.createUser(
