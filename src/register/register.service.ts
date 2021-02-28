@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateRegisterDto } from './dto/createRegister.dto';
 import { UserguardService } from '../database/userguard/userguard.service';
-import * as bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt';
 import { TypeuserService } from '../database/typeuser/typeuser.service';
 
 @Injectable()
@@ -12,9 +12,10 @@ export class RegisterService {
   ) {}
 
   newUser = async (passwordTxt: string) => {
-    const salt = bcrypt.genSaltSync(10);
-    const password = JSON.stringify(passwordTxt);
-    const hash = await bcrypt.hashSync(password, salt);
+    // const salt = bcrypt.genSaltSync(10);
+    const salt = 10;
+    const password = passwordTxt;
+    const hash = await bcrypt.hash(password, salt);
     return hash;
   };
 

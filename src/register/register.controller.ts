@@ -29,7 +29,6 @@ export class RegisterController {
   @UseGuards(AuthGuard('local'))
   @Post('/login')
   async loginUser(@Request() req: any) {
-    console.log('1.-', req.user);
     // const user = await this.registerService.loginUser(req);
     // return res.status(HttpStatus.OK).json({ user });
     return req.user;
