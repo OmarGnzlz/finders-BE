@@ -13,8 +13,9 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateRegisterDto } from './dto/createRegister.dto';
 import { RegisterService } from './register.service';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from '../auth/auth.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { LocalAuthGuard } from '../auth/local-auth.guard';
 
 @Controller('user')
 export class RegisterController {
@@ -30,19 +31,21 @@ export class RegisterController {
     return res.status(HttpStatus.OK).json({ user });
   }
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @Post('/login')
   async loginUser(@Request() req: any) {
-    const payload = await this.authService.payloadUser(req.user)
+    const payload = await this.authService.payloadUser(req.user);
     return payload;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/')
   async getUsers(@Res() res: any) {
     const users = await this.registerService.getUsers();
     return res.status(HttpStatus.OK).json({ users });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/:userID')
   async getUser(@Res() res: any, @Param('userID') userID: any) {
     const user = await this.registerService.getUser(userID);
