@@ -14,10 +14,10 @@ export class TypeuserService {
     const result = await this.typeUserRepository.findOne({
       where: [
         {
-          id
-        }
-      ]
-    })
-    return result
+          id,
+        },
+      ],
+    });
+    return result;
   }
 }

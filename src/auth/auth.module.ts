@@ -1,34 +1,25 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ConfigModule } from '@nestjs/config';
+import { UserguardModule } from '../database/userguard/userguard.module';
 import { PassportModule } from '@nestjs/passport';
+import { LocalStrategy } from './local.strategy';
+import { TypeuserModule } from '../database/typeuser/typeuser.module';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './auth.constants';
-import { JwtStrategy } from './jwt.strategy';
-import configSecret from '../config/config';
-import * as Joi from '@hapi/joi';
-import { UserModule } from '../database/user/user.module';
+import { jwtConstants } from './constants';
 
 @Module({
   imports: [
-    PassportModule,
+    UserguardModule, 
+    PassportModule, 
+    TypeuserModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: jwtConstants.expires },
+      signOptions: {
+        expiresIn: '12h'
+      },
     }),
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load: [configSecret],
-      envFilePath: `.env`,
-      validationSchema: Joi.object({
-        NODE_ENV: Joi.string()
-          .valid('development', 'production')
-          .default('development'),
-      }),
-    }),
-    UserModule,
   ],
-  providers: [AuthService, JwtStrategy],
-  exports: [AuthService, JwtStrategy],
+  providers: [AuthService, LocalStrategy],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

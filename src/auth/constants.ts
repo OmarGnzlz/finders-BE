@@ -5,5 +5,4 @@ const secret: any = configSecret().configSecret.secretKey;
 
 export const jwtConstants = {
   secret: secret,
-  expires: '43200s',
 };

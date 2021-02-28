@@ -1,60 +1,108 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateRegisterDto } from './dto/createRegister.dto';
 import { UserguardService } from '../database/userguard/userguard.service';
-import * as bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcrypt';
 import { TypeuserService } from '../database/typeuser/typeuser.service';
 
 @Injectable()
 export class RegisterService {
   constructor(
     private registerRepository: UserguardService,
-    private typeUserRepository: TypeuserService
+    private typeUserRepository: TypeuserService,
   ) {}
 
-  newUser = async (user: any) => {
-    const salt = bcrypt.genSaltSync(10);
-    const password = JSON.stringify(user.password);
-    const hash = await bcrypt.hashSync(password, salt);
-    const userCreated: CreateRegisterDto = {
-      name: user.name,
-      email: user.email,
-      pictures: user.pictures,
-      password: hash,
-      type_user_id: 1,
-    }
-    return userCreated
-  }
+  newUser = async (passwordTxt: string) => {
+    // const salt = bcrypt.genSaltSync(10);
+    const salt = 10;
+    const password = passwordTxt;
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+  };
 
-  async createRegister(createRegisterDto: any) {
-    let ans = /[@]/g
-    if (createRegisterDto.email.match(ans) === null) throw new HttpException ('Email is not valid', 400);
-    ans = /[a-zA-Z]/g
-    const numberCheck = /[0-9]/g
+  validateEmail = (email: string) => {
+    const aRCheck = /^[a-z0-9+_.-]+@[a-z0-9.-]+[.]{1}[a-z]+$/g;
+    const returnWord = 'email';
+    if (email.match(aRCheck) === null) return returnWord;
+    return false;
+  };
+
+  validatePasswordString = (password: any) => {
+    const returnWord = 'password';
+    const stringCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
+    if (password.match(stringCheck) === null) return returnWord;
+    return false;
+  };
+
+  getUserEmailToValidation = async (email: string) => {
+    return await this.registerRepository.getOneUserByEmail(email);
+  };
+
+  getUserNameToValidation = async (name: string) => {
+    return await this.registerRepository.getOneUserByName(name);
+  };
+
+  lowerCaseWord = (word: string) => {
+    return word.toLowerCase();
+  };
+
+  createRegister = async (createRegisterDto: CreateRegisterDto) => {
+    createRegisterDto.email = this.lowerCaseWord(createRegisterDto.email);
+    if (this.validateEmail(createRegisterDto.email) === 'email')
+      throw new HttpException('Email is not valid', 400);
     if (
-      createRegisterDto.password.match(ans) === null ||
-      createRegisterDto.password.match(numberCheck) === null
-    ) throw new HttpException ('Password shall be alfa numeric', 400)
-    const result = await this.registerRepository.getOneUser(createRegisterDto.name, createRegisterDto.email);
-    if(result) throw new HttpException ('user exist', 400);
-    const user = await this.newUser(createRegisterDto);
-    const register: any = await this.registerRepository.createUser(user);
-    let { password, ...res } = register
-    res.type_user_id = await this.typeUserRepository.getTypeById(res.type_user_id);
-    return res;
-  }
+      this.validatePasswordString(createRegisterDto.password) === 'password'
+    ) {
+      const message = `Password should content:
+- At least 1 capital letter
+- At least 1 character
+- At least 1 number
+- At least 1 special character
+- Longitude min is 6
+ `;
+      throw new HttpException(message, 400);
+    }
 
-  async getUsers() {
-    let users = await this.registerRepository.getAll();
+    const userExist = await this.getUserNameToValidation(
+      createRegisterDto.name,
+    );
+    const emailExist = await this.getUserEmailToValidation(
+      createRegisterDto.email,
+    );
+    if (userExist || emailExist) throw new HttpException('user exist', 400);
+
+    createRegisterDto.password = await this.newUser(createRegisterDto.password);
+    const register: any = await this.registerRepository.createUser(
+      createRegisterDto,
+    );
+
+    const { password, ...res } = register;
+    res.type_user_id = await this.typeUserRepository.getTypeById(
+      res.type_user_id,
+    );
+    return res;
+  };
+
+  loginUser = async (user: any) => {
+    return user;
+  };
+
+  getUsers = async () => {
+    const users = await this.registerRepository.getAll();
     for (const element in users) {
-      users[element].type_user_id = await this.typeUserRepository.getTypeById(users[element].type_user_id)
+      users[element].type_user_id = await this.typeUserRepository.getTypeById(
+        users[element].type_user_id,
+      );
     }
     return users;
-  }
-  
-  async getUser(userID: string) {
+  };
+
+  getUser = async (userID: string) => {
     const user: any = await this.registerRepository.getById(parseInt(userID));
-    let { password, ...res } = user
-    res.type_user_id = await this.typeUserRepository.getTypeById(res.type_user_id);
+    if (user === undefined) throw new HttpException('User does not exist', 404);
+    const { password, ...res } = user;
+    res.type_user_id = await this.typeUserRepository.getTypeById(
+      res.type_user_id,
+    );
     return res;
-  }
+  };
 }

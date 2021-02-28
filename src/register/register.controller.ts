@@ -1,41 +1,53 @@
-import { 
-  Body, 
-  Controller, 
-  Get, 
-  HttpStatus, 
-  Param, 
-  Post, 
-  Res, 
-  UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Res,
+  Request,
+  UseInterceptors,
+  UseGuards,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateRegisterDto } from './dto/createRegister.dto';
 import { RegisterService } from './register.service';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from '../auth/auth.service';
 
 @Controller('user')
 export class RegisterController {
   constructor(
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private authService: AuthService,
   ) {}
 
   @Post('/register')
   @UseInterceptors(FileInterceptor('name'))
-  async createUser(@Res() res, @Body() body: CreateRegisterDto){
-    const user = await this.registerService.createRegister(body)
-    console.log(user)
-    return res.status(HttpStatus.OK).json({ user })
+  async createUser(@Res() res: any, @Body() body: CreateRegisterDto) {
+    const user = await this.registerService.createRegister(body);
+    return res.status(HttpStatus.OK).json({ user });
+  }
+
+  @UseGuards(AuthGuard('local'))
+  @Post('/login')
+  async loginUser(@Request() req: any) {
+    const payload = await this.authService.payloadUser(req.user)
+    return payload;
   }
 
   @Get('/')
-  async getUsers(@Res() res) {
+  async getUsers(@Res() res: any) {
     const users = await this.registerService.getUsers();
-    return res.status(HttpStatus.OK).json({ users })
+    return res.status(HttpStatus.OK).json({ users });
   }
 
   @Get('/:userID')
-  async getUser(@Res() res, @Param('userID') userID) {
+  async getUser(@Res() res: any, @Param('userID') userID: any) {
     const user = await this.registerService.getUser(userID);
     return res.status(HttpStatus.OK).json({
-      user
-    })
+      user,
+    });
   }
 }

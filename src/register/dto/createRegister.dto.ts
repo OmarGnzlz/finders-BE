@@ -1,4 +1,4 @@
-import { number } from '@hapi/joi'
+import { number } from '@hapi/joi';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsInt, Min } from 'class-validator';
 
@@ -34,7 +34,7 @@ export class CreateRegisterDto {
   @IsInt()
   @ApiProperty({
     type: number,
-    description: 'Type of user'
+    description: 'Type of user',
   })
   type_user_id?: number;
 }
