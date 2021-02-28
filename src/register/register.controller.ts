@@ -14,10 +14,14 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateRegisterDto } from './dto/createRegister.dto';
 import { RegisterService } from './register.service';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from '../auth/auth.service';
 
 @Controller('user')
 export class RegisterController {
-  constructor(private registerService: RegisterService) {}
+  constructor(
+    private registerService: RegisterService,
+    private authService: AuthService,
+  ) {}
 
   @Post('/register')
   @UseInterceptors(FileInterceptor('name'))
@@ -29,9 +33,8 @@ export class RegisterController {
   @UseGuards(AuthGuard('local'))
   @Post('/login')
   async loginUser(@Request() req: any) {
-    // const user = await this.registerService.loginUser(req);
-    // return res.status(HttpStatus.OK).json({ user });
-    return req.user;
+    const payload = await this.authService.payloadUser(req.user)
+    return payload;
   }
 
   @Get('/')
