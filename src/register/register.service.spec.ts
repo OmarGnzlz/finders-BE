@@ -3,7 +3,7 @@ import { RegisterService } from './register.service';
 import { UserguardModule } from '../database/userguard/userguard.module';
 import { TypeuserModule } from '../database/typeuser/typeuser.module';
 import { AuthModule } from '../auth/auth.module';
-import { Repository  } from 'typeorm';
+import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { UserGuard } from '../database/userguard/entities/userguard.entity';
 
@@ -28,7 +28,9 @@ describe('RegisterService', () => {
       ],
     }).compile();
 
-    userguardRepository = module.get<MockRepository>(getRepositoryToken(UserGuard));
+    userguardRepository = module.get<MockRepository>(
+      getRepositoryToken(UserGuard),
+    );
     service = module.get<RegisterService>(RegisterService);
   });
 

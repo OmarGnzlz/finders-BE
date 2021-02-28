@@ -11,9 +11,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { LocalAuthGuard } from '../auth/auth-local.guard';
 import { CreateRegisterDto } from './dto/createRegister.dto';
 import { RegisterService } from './register.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class RegisterController {
@@ -26,12 +26,13 @@ export class RegisterController {
     return res.status(HttpStatus.OK).json({ user });
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(AuthGuard('local'))
   @Post('/login')
-  async loginUser(@Request() req: any, @Res() res: any) {
-    console.log(req.user);
-    const user = await this.registerService.loginUser(req);
-    return res.status(HttpStatus.OK).json({ user });
+  async loginUser(@Request() req: any) {
+    console.log('1.-', req.user);
+    // const user = await this.registerService.loginUser(req);
+    // return res.status(HttpStatus.OK).json({ user });
+    return req.user;
   }
 
   @Get('/')

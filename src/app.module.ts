@@ -6,6 +6,7 @@ import * as Joi from '@hapi/joi';
 import { InformationModule } from './information/information.module';
 import { TYPEORM_CONFIG } from './config/constants';
 import { RegisterModule } from './register/register.module';
+import { AuthModule } from './auth/auth.module';
 import databaseConfig from './config/database.config';
 import configSecret from './config/config';
 
@@ -28,6 +29,7 @@ import configSecret from './config/config';
     }),
     RegisterModule,
     InformationModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

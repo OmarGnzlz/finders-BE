@@ -3,14 +3,12 @@ import { CreateRegisterDto } from './dto/createRegister.dto';
 import { UserguardService } from '../database/userguard/userguard.service';
 import * as bcrypt from 'bcryptjs';
 import { TypeuserService } from '../database/typeuser/typeuser.service';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class RegisterService {
   constructor(
     private registerRepository: UserguardService,
     private typeUserRepository: TypeuserService,
-    private authService: AuthService,
   ) {}
 
   newUser = async (passwordTxt: string) => {
@@ -23,7 +21,6 @@ export class RegisterService {
   validateEmail = (email: string) => {
     const aRCheck = /^[a-z0-9+_.-]+@[a-z0-9.-]+[.]{1}[a-z]+$/g;
     const returnWord = 'email';
-    console.log(email.match(aRCheck));
     if (email.match(aRCheck) === null) return returnWord;
     return false;
   };
@@ -31,14 +28,7 @@ export class RegisterService {
   validatePasswordString = (password: any) => {
     const returnWord = 'password';
     const stringCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/g;
-    console.log(password.match(stringCheck));
     if (password.match(stringCheck) === null) return returnWord;
-    return false;
-  };
-
-  validateLength = (password: string) => {
-    const min = 6;
-    if (password.length < min) return 'len';
     return false;
   };
 
@@ -52,16 +42,24 @@ export class RegisterService {
 
   lowerCaseWord = (word: string) => {
     return word.toLowerCase();
-  }
+  };
 
   createRegister = async (createRegisterDto: CreateRegisterDto) => {
-    createRegisterDto.email = this.lowerCaseWord(createRegisterDto.email)
+    createRegisterDto.email = this.lowerCaseWord(createRegisterDto.email);
     if (this.validateEmail(createRegisterDto.email) === 'email')
       throw new HttpException('Email is not valid', 400);
-    if (this.validatePasswordString(createRegisterDto.password) === 'password')
-      throw new HttpException('Password shall be alfa numeric', 400);
-    if (this.validateLength(createRegisterDto.password) === 'len')
-      throw new HttpException('Password shall be more than 6 characters', 400);
+    if (
+      this.validatePasswordString(createRegisterDto.password) === 'password'
+    ) {
+      const message = `Password should content:
+- At least 1 capital letter
+- At least 1 character
+- At least 1 number
+- At least 1 special character
+- Longitude min is 6
+ `;
+      throw new HttpException(message, 400);
+    }
 
     const userExist = await this.getUserNameToValidation(
       createRegisterDto.name,
