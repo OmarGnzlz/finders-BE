@@ -62,14 +62,14 @@ export class RegisterService {
       throw new HttpException(message, 400);
     }
 
-    const userExist = await this.getUserNameToValidation(
+    /* const userExist = await this.getUserNameToValidation(
       createRegisterDto.name,
-    );
+    ); */
     const emailExist = await this.getUserEmailToValidation(
       createRegisterDto.email,
     );
 
-    if (media === false && (userExist || emailExist)) throw new HttpException('user exist', 400);
+    if (media === false && (emailExist)) throw new HttpException('user exist', 400);
     if (media) {
       const checkEmail: any = await this.registerRepository.getUserByEmailAndUser(createRegisterDto.name, createRegisterDto.email)
       if (checkEmail) return this.getUser(checkEmail.id);
