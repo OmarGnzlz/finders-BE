@@ -37,6 +37,13 @@ export class CreateRegisterPatientDto {
         description: "Patien's Constact Emergencies",
     })
     contact_emergencies: string;
+    
+    @IsInt()
+    @ApiProperty({
+        type: number,
+        description: "Patien's Institution",
+    })
+    institutions_id: number;
 
     @IsInt()
     @ApiProperty({

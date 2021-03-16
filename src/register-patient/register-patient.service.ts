@@ -2,6 +2,8 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { CreateRegisterPatientDto } from './dto/create-register-patient.dto';
 import { UserService } from './../database/user/user.service'
 import { TypeuserService } from '../database/typeuser/typeuser.service';
+import { InstitutionsService } from '../database/institutions/institutions.service';
+
 
 @Injectable()
 export class RegisterPatientService {
@@ -9,6 +11,7 @@ export class RegisterPatientService {
   constructor(
     private patientRepository: UserService,
     private typeUserRepository: TypeuserService,
+    private InstitutionsService: InstitutionsService,
   ) {}
   
   getPatienIdDocument = async (id_document: string) => {
@@ -30,6 +33,7 @@ export class RegisterPatientService {
 
     const {id_document, ...res } = registerPatient
     res.type_user_id = await this.typeUserRepository.getTypeById(res.type_user_id);
+    res.institutions_id = await this.InstitutionsService.getInstitution(res.institutions_id)
 
     return res; 
 
