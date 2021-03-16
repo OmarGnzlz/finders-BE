@@ -14,4 +14,17 @@ export class UserService {
     const register = this.userRepository.create(user);
     return await this.userRepository.save(register);
   }
+
+  async getUserByDocument(id_document: string){
+    const result = await this.userRepository.findOne({
+      where: [
+        {
+          id_document
+        }
+      ]
+    });
+    return result
+  }
+
 }
+

@@ -5,11 +5,11 @@ import { join } from 'path';
 function typeormModuleOptions(): TypeOrmModuleOptions {
   return {
     type: 'mysql',
-    host: process.env.HOST,
-    port: parseInt(process.env.PORT_DB) || 3306,
-    username: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
+    host: process.env.HOST || 'us-cdbr-east-03.cleardb.com',
+    port: parseInt(process.env.PORT_DB) || 3306 ,
+    username: process.env.USER_DB || 'ba3545d6fef034' ,
+    password: process.env.PASSWORD || '52ab6313',
+    database: process.env.DATABASE || 'heroku_d413dc4d2396743',
     entities: [join(__dirname, '../**/**/*entity{.ts,.js}')],
     autoLoadEntities: true,
     migrationsRun: true,
