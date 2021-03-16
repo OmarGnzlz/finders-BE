@@ -5,11 +5,11 @@ import { join } from 'path';
 function typeormModuleOptions(): TypeOrmModuleOptions {
   return {
     type: 'mysql',
-    host: process.env.HOST,
+    host: process.env.HOST_DB,
     port: parseInt(process.env.PORT_DB) || 3306,
-    username: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
+    username: process.env.USER_DB,
+    password: process.env.PASSWORD_DB,
+    database: process.env.DATABASE_DB,
     entities: [join(__dirname, '../**/**/*entity{.ts,.js}')],
     autoLoadEntities: true,
     migrationsRun: true,
