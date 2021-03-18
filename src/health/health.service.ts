@@ -48,8 +48,20 @@ export class HealthService {
     return `This action returns all health`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} health`;
+  getUserHealth = async (userID: any)  => {
+    const user: any = await this.healthRepository.geUserInfo(parseInt(userID))
+    if (user === undefined) throw new HttpException('User does not exist', 404);
+
+    const healthInfo: any  = await this.healthRepository.geInfo(user.id)
+    
+    const { ...res } = healthInfo[0]
+    res.institutions_id = await this.patientRepository.getUserById(res.institutions_id)
+    res.blood_type = await this.bloodtypeRepository.getBloodType(res.blood_type)
+    res.allergies = await this.allergiesRepository.getAllergies(res.allergies)
+    res.diseases = await this.diseaseRepository.getDiseases(res.diseases)
+    res.medication = await this.mediactionRepository.getMedication(res.medication)
+
+    return res
   }
 
   update(id: number, updateHealthDto: UpdateHealthDto) {

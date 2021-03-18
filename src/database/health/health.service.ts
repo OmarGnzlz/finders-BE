@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Res } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Health } from './entities/health.entity';
@@ -15,10 +15,19 @@ export class HealthServiceDB {
   }
 
   async geInfo(id: any){
+    const result = await this.healthRepository
+      .createQueryBuilder('health')
+      .where('health.id like :id', { id })
+      .select(['institutions_id', 'allergies', 'diseases', 'medication', 'blood_type'])
+      .execute()
+      return result
+  }
+  
+  async geUserInfo(user_id: any){
     const result = await this.healthRepository.findOne({
       where: [
         {
-          id
+          user_id
         }
       ]
     });

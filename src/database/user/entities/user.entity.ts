@@ -52,7 +52,7 @@ export class User {
 
   @ManyToOne(() => UserGuard, (userguard) => userguard.id)
   @JoinColumn({ name: 'userguard_id' })
-  guard_id: UserGuard;
+  userguard_id: UserGuard;
 
   @ManyToOne(() => TypeUser, (typeuser) => typeuser.id)
   @JoinColumn({ name: 'type_user_id' })

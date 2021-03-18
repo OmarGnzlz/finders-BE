@@ -30,9 +30,10 @@ export class HealthController {
     return this.healthService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.healthService.findOne(+id);
+  @Get('/:userID')
+  async getUserHealth(@Res() res: any,@Param('userID') userID: any) {
+    const user = await this.healthService.getUserHealth(userID)
+    return res.status(HttpStatus.OK).json({ user })
   }
 
 

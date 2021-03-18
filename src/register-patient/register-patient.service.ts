@@ -3,7 +3,7 @@ import { CreateRegisterPatientDto } from './dto/create-register-patient.dto';
 import { UserService } from './../database/user/user.service'
 import { TypeuserService } from '../database/typeuser/typeuser.service';
 import { InstitutionsService } from '../database/institutions/institutions.service';
-import { ApiQuery } from '@nestjs/swagger';
+import { UserguardService } from '../database/userguard/userguard.service'
 
 
 @Injectable()
@@ -13,6 +13,7 @@ export class RegisterPatientService {
     private patientRepository: UserService,
     private typeUserRepository: TypeuserService,
     private InstitutionsService: InstitutionsService,
+    private UserGuardRepository: UserguardService
   ) {}
   
 
@@ -36,6 +37,7 @@ export class RegisterPatientService {
     const { ...res } = registerPatient
     res.type_user_id = await this.typeUserRepository.getTypeById(res.type_user_id);
     res.institutions_id = await this.InstitutionsService.getInstitution(res.institutions_id)
+    res.userguard_id = await this.UserGuardRepository.getById(res.userguard_id)
     
 
     return res; 
@@ -54,6 +56,7 @@ export class RegisterPatientService {
     const { ...res } = patient
     res.type_user_id = await this.typeUserRepository.getTypeById(res.type_user_id);
     res.institutions_id = await this.InstitutionsService.getInstitution(res.institutions_id)
+    res.userguard_id = await this.UserGuardRepository.getById(res.userguard_id)
 
     return res
 

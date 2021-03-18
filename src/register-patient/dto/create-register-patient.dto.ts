@@ -54,6 +54,14 @@ export class CreateRegisterPatientDto {
     type_user_id?: number;
     
     
+    @IsInt()
+    @ApiProperty({
+        type: number,
+        description: 'User guard',
+    })
+    userguard_id: number;
+    
+    
     /* @IsInt()
     @ApiProperty({
         type: number,

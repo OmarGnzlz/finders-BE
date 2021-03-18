@@ -5,9 +5,10 @@ import { UserModule } from '../database/user/user.module'
 import { TypeuserModule } from '../database/typeuser/typeuser.module';
 import { AuthModule } from '../auth/auth.module';
 import { InstitutionsModule } from '../database/institutions/institutions.module'
+import { UserguardModule } from '../database/userguard/userguard.module'
 
 @Module({
-  imports:[UserModule, TypeuserModule, AuthModule, InstitutionsModule],
+  imports:[UserModule, TypeuserModule, AuthModule, InstitutionsModule, UserguardModule],
   controllers: [RegisterPatientController],
   providers: [RegisterPatientService],
   exports: [RegisterPatientService]
