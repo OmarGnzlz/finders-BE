@@ -9,4 +9,15 @@ export class DiseaseService {
     @InjectRepository(Disease)
     private readonly diseaseRepository: Repository<Disease>,
   ) {}
+
+  async getDiseases(id: any){
+    const result = await this.diseaseRepository.findOne({
+      where: [
+        {
+          id
+        }
+      ]
+    });
+    return result
+  }
 }

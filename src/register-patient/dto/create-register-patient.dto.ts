@@ -38,6 +38,7 @@ export class CreateRegisterPatientDto {
     })
     contact_emergencies: string;
     
+    
     @IsInt()
     @ApiProperty({
         type: number,
@@ -52,5 +53,34 @@ export class CreateRegisterPatientDto {
     })
     type_user_id?: number;
     
+    
+    /* @IsInt()
+    @ApiProperty({
+        type: number,
+        description: "User's allergies",
+    })
+    allergies: number;
+    
+    @IsInt()
+    @ApiProperty({
+        type: number,
+        description: "User's blood type",
+    })
+    blood_type: number;
+
+    @IsInt()
+    @ApiProperty({
+        type: number,
+        description: "User's medications",
+    })
+    medication: number;
+
+    @IsInt()
+    @ApiProperty({
+        type: number,
+        description: "User's diseases",
+    })
+    diseases: number; */
+
 
 }

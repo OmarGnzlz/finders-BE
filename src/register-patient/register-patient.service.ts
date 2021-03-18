@@ -3,6 +3,7 @@ import { CreateRegisterPatientDto } from './dto/create-register-patient.dto';
 import { UserService } from './../database/user/user.service'
 import { TypeuserService } from '../database/typeuser/typeuser.service';
 import { InstitutionsService } from '../database/institutions/institutions.service';
+import { ApiQuery } from '@nestjs/swagger';
 
 
 @Injectable()
@@ -14,6 +15,7 @@ export class RegisterPatientService {
     private InstitutionsService: InstitutionsService,
   ) {}
   
+
   getPatienIdDocument = async (id_document: string) => {
     return await this.patientRepository.getUserByDocument(id_document)
   }
@@ -22,7 +24,7 @@ export class RegisterPatientService {
     return word.toLowerCase();
   };
 
-  createPatient = async (createRegisterPatientDto: CreateRegisterPatientDto, media: boolean) => {
+  createPatient = async (createRegisterPatientDto: CreateRegisterPatientDto ,media: boolean) => {
     createRegisterPatientDto.id_document = this.lowerCaseWord(createRegisterPatientDto.id_document)
     
     const idDocumentExist = await this.getPatienIdDocument(createRegisterPatientDto.id_document)
@@ -31,9 +33,10 @@ export class RegisterPatientService {
 
     const registerPatient: any = await this.patientRepository.createUser(createRegisterPatientDto);
 
-    const {id_document, ...res } = registerPatient
+    const { ...res } = registerPatient
     res.type_user_id = await this.typeUserRepository.getTypeById(res.type_user_id);
     res.institutions_id = await this.InstitutionsService.getInstitution(res.institutions_id)
+    
 
     return res; 
 
@@ -43,8 +46,17 @@ export class RegisterPatientService {
     return `This action returns all registerPatient`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} registerPatient`;
+  getPatient =  async (patientID: string) => {
+    const patient: any = await this.patientRepository.getUserById(parseInt(patientID))
+    if(patient === undefined) throw new HttpException('Patient does not exits', 400)
+
+    
+    const { ...res } = patient
+    res.type_user_id = await this.typeUserRepository.getTypeById(res.type_user_id);
+    res.institutions_id = await this.InstitutionsService.getInstitution(res.institutions_id)
+
+    return res
+
   }
 
  

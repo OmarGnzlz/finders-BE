@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { InformationService } from './information.service';
 import { CreateInformationDto } from './dto/create-information.dto';
-import { UpdateInformationDto } from './dto/update-information.dto';
+
 
 @Controller('information')
 export class InformationController {
@@ -30,13 +30,7 @@ export class InformationController {
     return this.informationService.findOne(+id);
   }
 
-  @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateInformationDto: UpdateInformationDto,
-  ) {
-    return this.informationService.update(+id, updateInformationDto);
-  }
+  
 
   @Delete(':id')
   remove(@Param('id') id: string) {

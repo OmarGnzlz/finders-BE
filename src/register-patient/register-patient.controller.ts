@@ -34,17 +34,15 @@ export class RegisterPatientController {
     return res.status(HttpStatus.OK).json({ patient })
   }
 
-  @Get()
+  @Get('/')
   findAll() {
     return this.registerPatientService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.registerPatientService.findOne(+id);
+  @Get('/:userID')
+  async findOne(@Res() res:any ,@Param('userID') userID: any) {
+    const user = await this.registerPatientService.getPatient(userID);
+    return res.status(HttpStatus.OK).json({user})
   }
-
- 
-
   
 }
