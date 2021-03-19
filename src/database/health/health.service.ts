@@ -14,11 +14,21 @@ export class HealthServiceDB {
     return await this.healthRepository.save(register);
   }
 
+
+
   async geInfo(id: any){
     const result = await this.healthRepository
       .createQueryBuilder('health')
       .where('health.id like :id', { id })
       .select(['institutions_id', 'allergies', 'diseases', 'medication', 'blood_type'])
+      .execute()
+      return result
+  }
+  
+  async getAll(){
+    const result = await this.healthRepository
+      .createQueryBuilder('health')
+      .select(['user_id', 'allergies', 'diseases', 'medication', 'blood_type'])
       .execute()
       return result
   }

@@ -25,9 +25,10 @@ export class HealthController {
 
   }
 
-  @Get()
-  findAll() {
-    return this.healthService.findAll();
+  @Get('/')
+  async getAllUsersHealthInfo(@Res() res: any) {
+    const data =  await this.healthService.getAllInfo();
+    return res.status(HttpStatus.OK).json({ data })
   }
 
   @Get('/:userID')

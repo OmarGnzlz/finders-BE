@@ -25,6 +25,16 @@ export class UserService {
     });
     return result
   }
+
+  async getAll(){
+    const data = await this.userRepository
+      .createQueryBuilder('angel_user')
+      .select(['id', 'name','address', 'id_document', 'pictures', 
+      'contact_emergencies', 'institutions_id', 'userguard_id', 'type_user_id'])
+      .execute()
+
+      return data
+  }
   
   async getUserById(id: number){
     const result =  await this.userRepository

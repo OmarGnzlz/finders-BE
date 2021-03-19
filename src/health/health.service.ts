@@ -44,8 +44,18 @@ export class HealthService {
     return res
   }
 
-  findAll() {
-    return `This action returns all health`;
+  getAllInfo = async () => {
+    const healthInfo = await this.healthRepository.getAll()
+
+    for (const i in healthInfo){
+      healthInfo[i].user_id = await this.patientRepository.getUserById(healthInfo[i].user_id)
+      healthInfo[i].blood_type = await this.bloodtypeRepository.getBloodType(healthInfo[i].blood_type)
+      healthInfo[i].allergies = await this.allergiesRepository.getAllergies(healthInfo[i].allergies)
+      healthInfo[i].diseases = await this.diseaseRepository.getDiseases(healthInfo[i].diseases)
+      healthInfo[i].medication = await this.mediactionRepository.getMedication(healthInfo[i].medication)
+    }
+
+    return healthInfo
   }
 
   getUserHealth = async (userID: any)  => {
@@ -55,7 +65,7 @@ export class HealthService {
     const healthInfo: any  = await this.healthRepository.geInfo(user.id)
     
     const { ...res } = healthInfo[0]
-    res.institutions_id = await this.patientRepository.getUserById(res.institutions_id)
+    res.user_id = await this.patientRepository.getUserById(res.user_id)
     res.blood_type = await this.bloodtypeRepository.getBloodType(res.blood_type)
     res.allergies = await this.allergiesRepository.getAllergies(res.allergies)
     res.diseases = await this.diseaseRepository.getDiseases(res.diseases)

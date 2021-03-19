@@ -44,8 +44,16 @@ export class RegisterPatientService {
 
   }
 
-  findAll() {
-    return `This action returns all registerPatient`;
+  getPatients = async() => {
+    const patients = await this.patientRepository.getAll()
+
+    for (const i in patients){
+      patients[i].type_user_id = await this.typeUserRepository.getTypeById(patients[i].type_user_id)
+      patients[i].institutions_id = await this.InstitutionsService.getInstitution(patients[i].institutions_id)
+      patients[i].userguard_id = await this.UserGuardRepository.getById(patients[i].userguard_id)
+    }
+
+    return patients
   }
 
   getPatient =  async (patientID: string) => {
