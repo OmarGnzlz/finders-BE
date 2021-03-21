@@ -9,4 +9,15 @@ export class MedicationService {
     @InjectRepository(Medication)
     private readonly medicationRepository: Repository<Medication>,
   ) {}
+
+  async getMedication(id: any){
+    const result = await this.medicationRepository.findOne({
+      where: [
+        {
+          id
+        }
+      ]
+    });
+    return result
+  }
 }

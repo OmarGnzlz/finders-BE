@@ -9,4 +9,15 @@ export class AllergiesService {
     @InjectRepository(Allergies)
     private readonly allergiesRepository: Repository<Allergies>,
   ) {}
+
+  async getAllergies(id: any){
+    const result = await this.allergiesRepository.findOne({
+      where: [
+        {
+          id
+        }
+      ]
+    });
+    return result
+  }
 }

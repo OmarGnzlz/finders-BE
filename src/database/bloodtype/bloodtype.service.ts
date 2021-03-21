@@ -9,4 +9,15 @@ export class BloodtypeService {
     @InjectRepository(BloodType)
     private readonly bloodTypeRepository: Repository<BloodType>,
   ) {}
+
+  async getBloodType(id: any){
+    const result = await this.bloodTypeRepository.findOne({
+      where: [
+        {
+          id
+        }
+      ]
+    });
+    return result
+  }
 }

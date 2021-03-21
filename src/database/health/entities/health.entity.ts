@@ -27,6 +27,6 @@ export class Health {
   blood_type: BloodType;
 
   @ManyToOne(() => User, (user) => user.id)
-  @JoinColumn({ name: 'institutions_id' })
+  @JoinColumn({ name: 'user_id' })
   user_id: User;
 }
