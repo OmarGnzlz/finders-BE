@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Res,
   Request,
   UseInterceptors,
@@ -12,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateRegisterPatientDto } from './dto/create-register-patient.dto';
+import { UpdateRegisterPatientDto } from './dto/update-register-patient.dto'
 import { RegisterPatientService } from './register-patient.service';
 import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -32,6 +34,12 @@ export class RegisterPatientController {
   async create(@Res() res: any ,@Body() body : CreateRegisterPatientDto) {
     const patient = await this.registerPatientService.createPatient(body, false)
     return res.status(HttpStatus.OK).json({ patient })
+  }
+
+  @Put('/update-patient')
+  @UseInterceptors(FileInterceptor('name'))
+  async update(@Res() res: any, @Body() body: UpdateRegisterPatientDto){
+    
   }
 
   @Get('/')
