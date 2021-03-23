@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne , OneToMany} from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { Allergies } from '../../allergies/entities/allergies.entity';
 import { Medication } from '../../medication/entities/medication.entity';
@@ -7,10 +7,30 @@ import { Disease } from '../../disease/entities/disease.entity';
 
 @Entity('health')
 export class Health {
+  
+  @OneToMany(() => User, (user) => user.id, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+
+  @JoinColumn()
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Allergies, (allergies) => allergies.id)
+  @Column({ type: 'varchar', nullable: false })
+  allergies: string;
+  
+  @Column({ type: 'varchar', nullable: false })
+  diseases: string;
+  
+  @Column({ type: 'varchar', nullable: false })
+  medication: string;
+  
+  @Column({ type: 'varchar', nullable: false })
+  blood_type: string;
+  
+
+  /* @ManyToOne(() => Allergies, (allergies) => allergies.id)
   @JoinColumn({ name: 'allergies' })
   allergies: Allergies;
 
@@ -26,7 +46,10 @@ export class Health {
   @JoinColumn({ name: 'blood_type' })
   blood_type: BloodType;
 
-  @ManyToOne(() => User, (user) => user.id)
-  @JoinColumn({ name: 'user_id' })
-  user_id: User;
+ */
+
+// @ManyToOne(() => User, (user) => user.id)
+// @JoinColumn({ name: 'user_id' })
+// user_id: User;
+
 }

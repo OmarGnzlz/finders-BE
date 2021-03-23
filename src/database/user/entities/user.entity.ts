@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { CodeQr } from '../../codeqr/entities/codeqr.entity';
-import { Institutions } from '../../institutions/entities/institutions.entity';
+//import { Institutions } from '../../institutions/entities/institutions.entity';
 import { TypeUser } from '../../typeuser/entities/typeuser.entity';
 import { Position } from '../../position/entities/position.entity';
 import { Health } from '../../health/entities/health.entity';
@@ -23,10 +23,11 @@ export class User {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @OneToMany(() => Health, (health) => health.id, {
+  /* @OneToMany(() => Health, (health) => health.id, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
-  })
+  }) */
+  
   @JoinColumn()
   @PrimaryGeneratedColumn()
   id: number;
@@ -45,10 +46,14 @@ export class User {
 
   @Column({ type: 'text', nullable: false })
   contact_emergencies: string;
+  
+  
+  @Column({ type: 'text', nullable: false })
+  institution: string;
 
-  @ManyToOne(() => Institutions, (ins) => ins.id)
+  /* @ManyToOne(() => Institutions, (ins) => ins.id)
   @JoinColumn({ name: 'institutions_id' })
-  institutions_id: Institutions;
+  institutions_id: Institutions; */
 
   @ManyToOne(() => UserGuard, (userguard) => userguard.id)
   @JoinColumn({ name: 'userguard_id' })
@@ -57,4 +62,8 @@ export class User {
   @ManyToOne(() => TypeUser, (typeuser) => typeuser.id)
   @JoinColumn({ name: 'type_user_id' })
   type_user_id: TypeUser;
+  
+  @ManyToOne(() => Health, (health) => health.id)
+  @JoinColumn({ name: 'health_id' })
+  health_id: Health;
 }

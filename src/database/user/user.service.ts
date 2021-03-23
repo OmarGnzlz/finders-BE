@@ -30,7 +30,7 @@ export class UserService {
     const data = await this.userRepository
       .createQueryBuilder('angel_user')
       .select(['id', 'name','address', 'id_document', 'pictures', 
-      'contact_emergencies', 'institutions_id', 'userguard_id', 'type_user_id'])
+      'contact_emergencies', 'institution', 'userguard_id', 'type_user_id', 'health_id'])
       .execute()
 
       return data
@@ -41,7 +41,7 @@ export class UserService {
       .createQueryBuilder('angel_user')
       .where('angel_user.id like :id', { id })
       .select(['id', 'name','address', 'id_document', 'pictures', 
-      'contact_emergencies', 'institutions_id', 'userguard_id', 'type_user_id'])
+      'contact_emergencies', 'institution', 'userguard_id', 'type_user_id', 'health_id'])
       .execute()
       return result[0]
   }

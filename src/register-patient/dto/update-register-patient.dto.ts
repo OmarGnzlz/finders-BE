@@ -1,8 +1,8 @@
-import { number, string } from '@hapi/joi';
+import { number } from '@hapi/joi';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsInt, Min } from 'class-validator';
 
-export class CreateRegisterPatientDto {
+export class UpdateRegisterPatientDto {
     @IsString()
     @ApiProperty({
         type: String,
@@ -39,56 +39,42 @@ export class CreateRegisterPatientDto {
     contact_emergencies: string;
     
     
-    @IsString()
+    @IsInt()
     @ApiProperty({
-        type: string,
+        type: number,
         description: "Patien's Institution",
     })
-    institution: string;
+    institutions_id: number;
 
-    @IsInt()
+    
+    
+    /* @IsInt()
     @ApiProperty({
         type: number,
-        description: 'Type of user',
-    })
-    type_user_id?: number;
-    
-    
-    @IsInt()
-    @ApiProperty({
-        type: number,
-        description: 'User guard',
-    })
-    userguard_id: number;
-    
-    
-    @IsString()
-    @ApiProperty({
-        type: string,
         description: "User's allergies",
     })
-    allergies: string;
+    allergies: number;
     
-    @IsString()
+    @IsInt()
     @ApiProperty({
-        type: string,
+        type: number,
         description: "User's blood type",
     })
-    blood_type: string;
+    blood_type: number;
 
-    @IsString()
+    @IsInt()
     @ApiProperty({
-        type: string,
+        type: number,
         description: "User's medications",
     })
-    medication: string;
+    medication: number;
 
-    @IsString()
+    @IsInt()
     @ApiProperty({
-        type: string,
+        type: number,
         description: "User's diseases",
     })
-    diseases: string;
-    
+    diseases: number; */
+
 
 }
