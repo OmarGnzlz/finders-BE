@@ -3,12 +3,14 @@ import { CreateRegisterDto } from './dto/createRegister.dto';
 import { UserguardService } from '../database/userguard/userguard.service';
 import * as bcrypt from 'bcrypt';
 import { TypeuserService } from '../database/typeuser/typeuser.service';
+import { UserService } from 'src/database/user/user.service';
 
 @Injectable()
 export class RegisterService {
   constructor(
     private registerRepository: UserguardService,
     private typeUserRepository: TypeuserService,
+    private patientRepository: UserService
   ) {}
 
   newUser = async (passwordTxt: string) => {
@@ -104,10 +106,18 @@ export class RegisterService {
   getUser = async (userID: string) => {
     const user: any = await this.registerRepository.getById(parseInt(userID));
     if (user === undefined) throw new HttpException('User does not exist', 404);
+    
+    const angels: any = await this.patientRepository.getUserGuard(parseInt(userID))
+
+    
+    
     const { password, ...res } = user;
     res.type_user_id = await this.typeUserRepository.getTypeById(
       res.type_user_id,
     );
-    return res;
+    return {
+      user: res,
+      angels: angels
+    };
   };
 }
