@@ -26,6 +26,18 @@ export class UserService {
     return result
   }
 
+  async getUserGuard(userguard_id: number){
+    const data = await this.userRepository.find({
+      where: [
+        {
+          userguard_id
+        }
+      ]
+    })
+
+    return data
+  }
+
   async getAll(){
     const data = await this.userRepository
       .createQueryBuilder('angel_user')

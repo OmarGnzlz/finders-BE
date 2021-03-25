@@ -4,9 +4,10 @@ import { RegisterService } from './register.service';
 import { UserguardModule } from '../database/userguard/userguard.module';
 import { TypeuserModule } from '../database/typeuser/typeuser.module';
 import { AuthModule } from '../auth/auth.module';
+import { UserModule } from '../database/user/user.module'
 
 @Module({
-  imports: [UserguardModule, TypeuserModule, AuthModule],
+  imports: [UserguardModule, TypeuserModule, AuthModule, UserModule],
   controllers: [RegisterController],
   providers: [RegisterService],
   exports: [RegisterService],
