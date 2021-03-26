@@ -8,7 +8,6 @@ import { TYPEORM_CONFIG } from './config/constants';
 import { RegisterModule } from './register/register.module';
 import { AuthModule } from './auth/auth.module';
 import { RegisterPatientModule } from './register-patient/register-patient.module';
-import { HealthModule } from './health/health.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import databaseConfig from './config/database.config';
 import configSecret from './config/config';
@@ -35,7 +34,6 @@ import { MulterModule } from '@nestjs/platform-express'
     InformationModule,
     AuthModule,
     RegisterPatientModule,
-    HealthModule,
     CloudinaryModule,
     MulterModule.register({
       dest: './uploads',

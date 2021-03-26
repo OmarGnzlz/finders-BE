@@ -57,8 +57,13 @@ export class RegisterPatientController {
   }
 
   @Put('/update-patient')
-  async update(@Res() res: any, @Body() body: UpdateRegisterPatientDto){
-    
+  @UseInterceptors(FileFieldsInterceptor([
+    {name: 'picture', maxCount: 1},
+    {name: 'qr', maxCount: 1}
+  ], storage))
+  async update(@Res() res: any,@Body() body: UpdateRegisterPatientDto, @UploadedFiles() files){
+    const patient = await this.registerPatientService.updatePatient( body, files)
+    return res.status(HttpStatus.OK).json({ patient })
   }
 
   @Get('/')
