@@ -24,12 +24,12 @@ export class CreateRegisterPatientDto {
     })
     id_document: string;
 
-    @IsString()
+  /*   @IsString()
     @ApiProperty({
         type: String,
         description: "Patien's Pictures",
     })
-    pictures: string;
+    pictures: string; */
 
     @IsString()
     @ApiProperty({
@@ -46,20 +46,20 @@ export class CreateRegisterPatientDto {
     })
     institution: string;
 
-    @IsInt()
+  /*   @IsString()
     @ApiProperty({
-        type: number,
+        type: string,
         description: 'Type of user',
     })
-    type_user_id?: number;
+    type_user_id?: string; */
     
     
-    @IsInt()
+    @IsString()
     @ApiProperty({
-        type: number,
+        type: string,
         description: 'User guard',
     })
-    userguard_id: number;
+    userguard_id: string;
     
     
     @IsString()
