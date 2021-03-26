@@ -41,9 +41,8 @@ export class User {
   @Column({ type: 'varchar', nullable: false })
   id_document: string;
 
- /*  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   pictures: string;
-   */
   
   @Column({ type: 'varchar', nullable: false })
   code_qr: string;

@@ -41,7 +41,7 @@ export class UserService {
   async getAll(){
     const data = await this.userRepository
       .createQueryBuilder('angel_user')
-      .select(['id', 'name','address', 'id_document', 
+      .select(['id', 'name','address', 'id_document', 'pictures', 
       'contact_emergencies', 'institution', 'userguard_id', 'type_user_id', 'health_id', 'code_qr'])
       .execute()
 
@@ -52,7 +52,7 @@ export class UserService {
     const result =  await this.userRepository
       .createQueryBuilder('angel_user')
       .where('angel_user.id like :id', { id })
-      .select(['id', 'name','address', 'id_document', 
+      .select(['id', 'name','address', 'id_document', 'pictures', 
       'contact_emergencies', 'institution', 'userguard_id', 'type_user_id', 'health_id', 'code_qr'])
       .execute()
       return result[0]
