@@ -40,7 +40,7 @@ $ npm run test:cov
 ```
 ## Built with 
 
-- [TypeSrcript](https://www.typescriptlang.org/) - Programming Language
+- [TypeSrcript](https://www.typescriptlang.org/) - Programming Language Built on JavaScript
 - [NodeJs](https://https://nodejs.org/en//) - is a server-side JavaScript environment
 - [Nest.js](https://nestjs.com/) - framework for Node.js
 - [PostgreSQl](https://www.postgresql.org/) - Database
