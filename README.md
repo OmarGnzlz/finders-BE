@@ -1,4 +1,5 @@
 ## Finders API
+![header](https://i.imgur.com/s7zzEgI.png)
 
 _Web application using QR code that has all the information related to a person._
 _The information shows up in the QR. This QR has been previously authorized by the user's family members in order that the code has the user's personal identification that allowed sanitary assist or provision of health care such as allergies, diseases, or medications
