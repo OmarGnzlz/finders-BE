@@ -38,5 +38,12 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+## Built with 
+
+- [TypeSrcript](https://www.typescriptlang.org/) - Programming Language
+- [NodeJs](https://https://nodejs.org/en//) - is a server-side JavaScript environment
+- [Nest.js](https://nestjs.com/) - framework for Node.js
+- [PostgreSQl](https://www.postgresql.org/) - Database
+- [Postman](https://www.postman.com/) - platform for API development
 
 
