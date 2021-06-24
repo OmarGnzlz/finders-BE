@@ -1,11 +1,11 @@
 ## Finders API
 
-_Web application using QR code that has all the information related to a person.
-The information shows up in the QR. This QR has been previously authorized by the user's family members in order that the code has the user's personal identification that allowed sanitary assist or provision of health care such as allergies, diseases, or medications
+_Web application using QR code that has all the information related to a person._
+_The information shows up in the QR. This QR has been previously authorized by the user's family members in order that the code has the user's personal identification that allowed sanitary assist or provision of health care such as allergies, diseases, or medications
 
 ## Installation and initialization
 
-_If you have already cloned the repository, you will be able to install all the depe
+_If you have already cloned the repository, you will be able to install all the dependencies with the following command._
 
 ### Installation
 
